@@ -22,6 +22,7 @@ def pytest_addoption(parser):
         "--firefox_location", default="C:/Program Files/Mozilla Firefox"
     )
 
+
 @pytest.fixture
 def browser(request):
     global driver
@@ -79,5 +80,7 @@ def browser(request):
     request.addfinalizer(driver.close)
 
     driver.get(url)
+
+    driver.url = url
 
     return driver
