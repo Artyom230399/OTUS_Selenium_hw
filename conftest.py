@@ -1,4 +1,5 @@
 import pytest
+import json
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -84,3 +85,20 @@ def browser(request):
     driver.url = url
 
     return driver
+
+
+@pytest.fixture
+def user_login():
+    with open("../Login.json", "r") as f:
+        user = json.load(f)
+        login = user['Login']
+    return login
+
+
+@pytest.fixture
+def user_password():
+    with open("../Login.json",
+              "r") as f:
+        user = json.load(f)
+        password = user['Login']
+    return password
