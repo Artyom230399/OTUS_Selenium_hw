@@ -1,13 +1,6 @@
-import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import json
-
-with open("Login_details.json", "r") as f:
-    user = json.load(f)
-    login = user['Login']
-    password = user['Password']
 
 
 class HomePage:
@@ -196,12 +189,12 @@ class Catalog:
 
 
 # Наличие каталога по категориям
-def test_Catalog_Categories(browser):
+def test_Catalog_Categories(browser, user_login, user_password):
     # Авторизация
     browser.get(browser.url + "/admin")
     WebDriverWait(browser, 1).until(EC.visibility_of_element_located(LogIn_Admin.Username))
-    browser.find_element(*LogIn_Admin.Username).send_keys(login)
-    browser.find_element(*LogIn_Admin.Password).send_keys(password)
+    browser.find_element(*LogIn_Admin.Username).send_keys(user_login)
+    browser.find_element(*LogIn_Admin.Password).send_keys(user_password)
     browser.find_element(*LogIn_Admin.Button_Login).click()
 
     WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Catalog_Navigation))
@@ -210,27 +203,27 @@ def test_Catalog_Categories(browser):
 
 
 # Наличие Category Name В шапке таблицы
-def test_Catalog_Categories_Category_Name(browser):
+def test_Catalog_Categories_Category_Name(browser, user_login, user_password):
     # Авторизация
     browser.get(browser.url + "/admin")
     WebDriverWait(browser, 2).until(EC.visibility_of_element_located(LogIn_Admin.Username))
-    browser.find_element(*LogIn_Admin.Username).send_keys(login)
-    browser.find_element(*LogIn_Admin.Password).send_keys(password)
+    browser.find_element(*LogIn_Admin.Username).send_keys(user_login)
+    browser.find_element(*LogIn_Admin.Password).send_keys(user_password)
     browser.find_element(*LogIn_Admin.Button_Login).click()
 
-    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Catalog_Navigation))
+    WebDriverWait(browser, 2).until(EC.element_to_be_clickable(Catalog.Catalog_Navigation))
     browser.find_element(*Catalog.Catalog_Navigation).click()
     browser.find_element(*Catalog.Categories).click()
     WebDriverWait(browser, 2).until(EC.visibility_of_element_located(Catalog.Category_Name))
 
 
 # Наличие вкладки Information
-def test_Catalog_Categories_Information(browser):
+def test_Catalog_Categories_Information(browser, user_login, user_password):
     # Авторизация
     browser.get(browser.url + "/admin")
     WebDriverWait(browser, 2).until(EC.visibility_of_element_located(LogIn_Admin.Username))
-    browser.find_element(*LogIn_Admin.Username).send_keys(login)
-    browser.find_element(*LogIn_Admin.Password).send_keys(password)
+    browser.find_element(*LogIn_Admin.Username).send_keys(user_login)
+    browser.find_element(*LogIn_Admin.Password).send_keys(user_password)
     browser.find_element(*LogIn_Admin.Button_Login).click()
 
     WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Catalog_Navigation))
@@ -239,12 +232,12 @@ def test_Catalog_Categories_Information(browser):
 
 
 # Наличие каталога по продуктам
-def test_Catalog_Products(browser):
+def test_Catalog_Products(browser, user_login, user_password):
     # Авторизация
     browser.get(browser.url + "/admin")
     WebDriverWait(browser, 1).until(EC.visibility_of_element_located(LogIn_Admin.Username))
-    browser.find_element(*LogIn_Admin.Username).send_keys(login)
-    browser.find_element(*LogIn_Admin.Password).send_keys(password)
+    browser.find_element(*LogIn_Admin.Username).send_keys(user_login)
+    browser.find_element(*LogIn_Admin.Password).send_keys(user_password)
     browser.find_element(*LogIn_Admin.Button_Login).click()
 
     WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Catalog_Navigation))
@@ -253,12 +246,12 @@ def test_Catalog_Products(browser):
 
 
 # Наличие каталога по Downloads
-def test_Catalog_Downloads(browser):
+def test_Catalog_Downloads(browser, user_login, user_password):
     # Авторизация
     browser.get(browser.url + "/admin")
     WebDriverWait(browser, 1).until(EC.visibility_of_element_located(LogIn_Admin.Username))
-    browser.find_element(*LogIn_Admin.Username).send_keys(login)
-    browser.find_element(*LogIn_Admin.Password).send_keys(password)
+    browser.find_element(*LogIn_Admin.Username).send_keys(user_login)
+    browser.find_element(*LogIn_Admin.Password).send_keys(user_password)
     browser.find_element(*LogIn_Admin.Button_Login).click()
 
     WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Catalog_Navigation))

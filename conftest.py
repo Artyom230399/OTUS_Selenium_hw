@@ -1,7 +1,9 @@
 import pytest
+import json
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+import os.path
 
 
 # Какие значения передаем через консоль?
@@ -84,3 +86,26 @@ def browser(request):
     driver.url = url
 
     return driver
+
+
+if os.path.isfile("Login_details.json"):
+    path_login = "Login_details.json"
+
+elif os.path.isfile("../Login_details.json"):
+    path_login = "../Login_details.json"
+
+
+@pytest.fixture
+def user_login():
+    with open(path_login, 'r') as f:
+        user = json.load(f)
+        login = user['Login']
+    return login
+
+
+@pytest.fixture
+def user_password():
+    with open(path_login, 'r') as f2:
+        user = json.load(f2)
+        password = user['Password']
+    return password
