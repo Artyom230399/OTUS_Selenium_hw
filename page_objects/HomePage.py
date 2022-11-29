@@ -4,11 +4,12 @@ from selenium.webdriver.common.by import By
 
 class OpencartHomePageElements:
     Desktops_Button = (By.CSS_SELECTOR, "#menu > div.collapse.navbar-collapse.navbar-ex1-collapse > ul"
-                                       " > li:nth-child(1) > a")
+                                        " > li:nth-child(1) > a")
     Logo = (By.CSS_SELECTOR, "#logo > a > img")
     Search = (By.CSS_SELECTOR, "#search > input")
     Search_Button = (By.CSS_SELECTOR, "#search > span > button")
     Number_Phone = (By.CSS_SELECTOR, "#top-links > ul > li:nth-child(1) > span")
+
 
 class HomePage(BasePage):
 
@@ -28,4 +29,6 @@ class HomePage(BasePage):
         return self.find_element(locator=OpencartHomePageElements.Search_Button, time=2).click()
 
     def check_number_phone(self):
+        self.driver.maximize_window()
         return str(self.find_element(locator=OpencartHomePageElements.Number_Phone, time=2).text)
+

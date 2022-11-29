@@ -1,4 +1,9 @@
 from page_objects.HomePage import HomePage
+from page_objects.AdminPage import AdminPage
+from page_objects.MacBookPage import MacBookPage
+from page_objects.CatalogPage import CatalogPage
+import time
+
 
 def test_homepage_search_desktops_button(browser):
     HomePage(browser).search_desktop_button()
@@ -18,164 +23,92 @@ def test_homepage_search(browser):
 
 
 def test_homepage_number_phone(browser):
-    browser.maximize_window()
     assert HomePage(browser).check_number_phone() == "123456789"
 
 
+def test_macbookpage_title(browser):
+    MacBookPage(browser).open_macbook_page()
+    assert MacBookPage(browser).title_macbook_page() == "MacBook"
 
 
+def test_macbookpage_add_in_cart(browser):
+    MacBookPage(browser).open_macbook_page()
+    MacBookPage(browser).add_macbook()
 
-## Наличие имени в карточке товара и проверка корректности имени
-# def test_MacBook_Name(browser):
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(HomePage.MacBook_Cart)).click()
-#    WebDriverWait(browser, 1).until(EC.visibility_of_element_located(MacBookCart.Name))
-#    name = browser.find_element(*MacBookCart.Name).text
-#    assert name == "MacBook"
-#
-#
-## Проверка наличия Description в карточке товара
-# def test_MacBook_Description(browser):
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(HomePage.MacBook_Cart)).click()
-#    WebDriverWait(browser, 1).until(EC.visibility_of_element_located(MacBookCart.Description))
-#
-#
-## Проверка наличия Specification в карточке товара
-# def test_MacBook_Specification(browser):
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(HomePage.MacBook_Cart)).click()
-#    WebDriverWait(browser, 1).until(EC.visibility_of_element_located(MacBookCart.Specification))
-#
-#
-## Проверка наличия Reviews в карточке товара
-# def test_MacBook_Reviews(browser):
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(HomePage.MacBook_Cart)).click()
-#    WebDriverWait(browser, 1).until(EC.visibility_of_element_located(MacBookCart.Reviews))
-#
-#
-## Проверка наличия кнопки Add to cart
-# def test_MacBook_Add_To_Cart(browser):
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(HomePage.MacBook_Cart)).click()
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(MacBookCart.Add_To_Cart))
-#
-#
-# class LogIn_Admin:
-#    Username = (By.CSS_SELECTOR, '#input-username')
-#    Password = (By.CSS_SELECTOR, '#input-password')
-#    Button_Login = (By.CSS_SELECTOR, '#content > div > div > div > div > div.panel-body > form'
-#                                     ' > div.text-right > button')
-#    Message = (By.CSS_SELECTOR, '#content > div > div > div > div > div.panel-heading > h1')
-#    ForgottenPassword = (By.CSS_SELECTOR, '#content > div > div > div > div > div.panel-body'
-#                                          ' > form > div:nth-child(2) > span > a')
-#
-#
-## Наличие поля Username
-# def test_LogIn_Admin_Username(browser):
-#    browser.get(browser.url + "/admin")
-#    WebDriverWait(browser, 1).until(EC.visibility_of_element_located(LogIn_Admin.Username))
-#
-#
-## Наличие поля Password
-# def test_LogIn_Admin_Password(browser):
-#    browser.get(browser.url + "/admin")
-#    WebDriverWait(browser, 1).until(EC.visibility_of_element_located(LogIn_Admin.Password))
-#
-#
-## Наличие кнопки входа
-# def test_LogIn_Admin_Button_Login(browser):
-#    browser.get(browser.url + "/admin")
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(LogIn_Admin.Button_Login))
-#
-#
-## Наличие сообщения над формой авторизации
-# def test_LogIn_Admin_Message(browser):
-#    browser.get(browser.url + "/admin")
-#    WebDriverWait(browser, 1).until(EC.visibility_of_element_located(LogIn_Admin.Message))
-#
-#
-# Наличие кнопки Forgotten Password
-# def test_Login_Admin_ForgottenPassword(browser):
-#    browser.get(browser.url + "/admin")
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(LogIn_Admin.ForgottenPassword))
-#
-#
-# class Catalog:
-#    Catalog_Navigation = (By.CSS_SELECTOR, '#menu-catalog > a')
-#    Categories = (By.CSS_SELECTOR, '#collapse1 > li:nth-child(1) > a')
-#    Products = (By.CSS_SELECTOR, '#collapse1 > li:nth-child(2) > a')
-#    Downloads = (By.CSS_SELECTOR, '#collapse1 > li:nth-child(8) > a')
-#    Category_Name = (By.CSS_SELECTOR, '#content > div.container-fluid > div > div.panel-heading > h3')
-#    Information = (By.CSS_SELECTOR, '#collapse1 > li:nth-child(10) > a')
-#
-#
-## Наличие каталога по категориям
-# def test_Catalog_Categories(browser, user_login, user_password):
-#    # Авторизация
-#    browser.get(browser.url + "/admin")
-#    WebDriverWait(browser, 1).until(EC.visibility_of_element_located(LogIn_Admin.Username))
-#    browser.find_element(*LogIn_Admin.Username).send_keys(user_login)
-#    browser.find_element(*LogIn_Admin.Password).send_keys(user_password)
-#    browser.find_element(*LogIn_Admin.Button_Login).click()
-#
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Catalog_Navigation))
-#    browser.find_element(*Catalog.Catalog_Navigation).click()
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Categories))
-#
-#
-## Наличие Category Name В шапке таблицы
-# def test_Catalog_Categories_Category_Name(browser, user_login, user_password):
-#    # Авторизация
-#    browser.get(browser.url + "/admin")
-#    WebDriverWait(browser, 2).until(EC.visibility_of_element_located(LogIn_Admin.Username))
-#    browser.find_element(*LogIn_Admin.Username).send_keys(user_login)
-#    browser.find_element(*LogIn_Admin.Password).send_keys(user_password)
-#    browser.find_element(*LogIn_Admin.Button_Login).click()
-#
-#    WebDriverWait(browser, 2).until(EC.element_to_be_clickable(Catalog.Catalog_Navigation))
-#    browser.find_element(*Catalog.Catalog_Navigation).click()
-#    browser.find_element(*Catalog.Categories).click()
-#    WebDriverWait(browser, 2).until(EC.visibility_of_element_located(Catalog.Category_Name))
-#
-#
-## Наличие вкладки Information
-# def test_Catalog_Categories_Information(browser, user_login, user_password):
-#    # Авторизация
-#    browser.get(browser.url + "/admin")
-#    WebDriverWait(browser, 2).until(EC.visibility_of_element_located(LogIn_Admin.Username))
-#    browser.find_element(*LogIn_Admin.Username).send_keys(user_login)
-#    browser.find_element(*LogIn_Admin.Password).send_keys(user_password)
-#    browser.find_element(*LogIn_Admin.Button_Login).click()
-#
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Catalog_Navigation))
-#    browser.find_element(*Catalog.Catalog_Navigation).click()
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Information))
-#
-#
-## Наличие каталога по продуктам
-# def test_Catalog_Products(browser, user_login, user_password):
-#    # Авторизация
-#    browser.get(browser.url + "/admin")
-#    WebDriverWait(browser, 1).until(EC.visibility_of_element_located(LogIn_Admin.Username))
-#    browser.find_element(*LogIn_Admin.Username).send_keys(user_login)
-#    browser.find_element(*LogIn_Admin.Password).send_keys(user_password)
-#    browser.find_element(*LogIn_Admin.Button_Login).click()
-#
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Catalog_Navigation))
-#    browser.find_element(*Catalog.Catalog_Navigation).click()
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Products))
-#
-#
-## Наличие каталога по Downloads
-# def test_Catalog_Downloads(browser, user_login, user_password):
-#    # Авторизация
-#    browser.get(browser.url + "/admin")
-#    WebDriverWait(browser, 1).until(EC.visibility_of_element_located(LogIn_Admin.Username))
-#    browser.find_element(*LogIn_Admin.Username).send_keys(user_login)
-#    browser.find_element(*LogIn_Admin.Password).send_keys(user_password)
-#    browser.find_element(*LogIn_Admin.Button_Login).click()
-#
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Catalog_Navigation))
-#    browser.find_element(*Catalog.Catalog_Navigation).click()
-#    WebDriverWait(browser, 1).until(EC.element_to_be_clickable(Catalog.Downloads))
-#
+
+def test_macbookpage_wishlist(browser):
+    MacBookPage(browser).open_macbook_page()
+    MacBookPage(browser).search_add_wishlist_button()
+
+
+def test_macbookpage_home_button(browser):
+    MacBookPage(browser).open_macbook_page()
+    MacBookPage(browser).search_home_button()
+
+
+def test_macbook_description_button(browser):
+    MacBookPage(browser).open_macbook_page()
+    MacBookPage(browser).search_description()
+
+
+def test_admin_open_page(browser):
+    AdminPage(browser).open_admin_page()
+
+
+def test_admin_title(browser):
+    AdminPage(browser).open_admin_page()
+    assert AdminPage(browser).title_adminPage() == "Administration"
+
+
+def test_admin_username_field(browser):
+    AdminPage(browser).open_admin_page()
+    AdminPage(browser).check_username_field("admin")
+
+
+def test_admin_password_field(browser):
+    AdminPage(browser).open_admin_page()
+    AdminPage(browser).check_password_field("admin")
+
+
+def test_admin_login_button(browser):
+    AdminPage(browser).Authorization(username="admin", password="admin")
+
+
+def test_catalog_categories(browser, user_login, user_password):
+    AdminPage(browser).Authorization(username=user_login, password=user_password)
+    CatalogPage(browser).click_catalog()
+    CatalogPage(browser).click_categories()
+    assert CatalogPage(browser).check_title_catalog() == "Categories"
+
+
+def test_catalog_products(browser, user_login, user_password):
+    AdminPage(browser).Authorization(username=user_login, password=user_password)
+    CatalogPage(browser).click_catalog()
+    CatalogPage(browser).click_products()
+    assert CatalogPage(browser).check_title_catalog() == "Products"
+
+
+def test_catalog_filters(browser, user_login, user_password):
+    AdminPage(browser).Authorization(username=user_login, password=user_password)
+    CatalogPage(browser).click_catalog()
+    CatalogPage(browser).click_filters()
+    assert CatalogPage(browser).check_title_catalog() == "Filters"
+
+
+def test_catalog_options(browser, user_login, user_password):
+    AdminPage(browser).Authorization(username=user_login, password=user_password)
+    CatalogPage(browser).click_catalog()
+    CatalogPage(browser).click_options()
+    assert CatalogPage(browser).check_title_catalog() == "Options"
+
+
+def test_catalog_downloads(browser, user_login, user_password):
+    AdminPage(browser).Authorization(username=user_login, password=user_password)
+    CatalogPage(browser).click_catalog()
+    CatalogPage(browser).click_downloads()
+    assert CatalogPage(browser).check_title_catalog() == "Downloads"
+
+
 #
 # class RegisterAccount:
 #    First_Name_Field = (By.CSS_SELECTOR, '#input-firstname')
