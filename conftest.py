@@ -84,7 +84,6 @@ def browser(request):
     driver.get(url)
 
     driver.url = url
-
     return driver
 
 
@@ -109,3 +108,4 @@ def user_password():
         user = json.load(f2)
         password = user['Password']
     return password
+
