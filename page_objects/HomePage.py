@@ -35,7 +35,7 @@ class HomePage(BasePage):
 
     def check_number_phone(self):
         self.driver.maximize_window()
-        return str(self.find_element(locator=OpencartHomePageElements.Number_Phone, time=5).get_property("innerText"))
+        return self.find_element(locator=OpencartHomePageElements.Logo, time=5)
 
     def check_currency_button(self):
         self.find_element(locator=OpencartHomePageElements.Currency_Button, time=2).click()
