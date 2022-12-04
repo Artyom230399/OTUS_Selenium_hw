@@ -19,16 +19,28 @@ class ProductsPageElements:
 class ProductsPage(BasePage):
 
     def add_product(self, products_name, Meta_Tag, Model):
+        self.logger.info(f"Click on the add button")
         self.find_element(locator=ProductsPageElements.add_button, time=2).click()
+        self.logger.info(f"Input products name")
         self.find_element(locator=ProductsPageElements.Product_name_field, time=2).send_keys(products_name)
+        self.logger.info(f"Input Meta tag")
         self.find_element(locator=ProductsPageElements.Meta_Tag, time=2).send_keys(Meta_Tag)
+        self.logger.info(f"Click on the data button")
         self.find_element(locator=ProductsPageElements.Data_button, time=2).click()
+        self.logger.info(f"Input Model")
         self.find_element(locator=ProductsPageElements.Model_field, time=2).send_keys(Model)
+        self.logger.info(f"Click on the save button")
         self.find_element(locator=ProductsPageElements.Save_button, time=2).click()
+        self.logger.info(f"Check alert")
         self.find_element(locator=ProductsPageElements.Alert, time=3)
+        self.logger.info(f"Add product in the catalog")
 
     def delete_product(self):
+        self.logger.info(f"Click choise button")
         self.find_element(locator=ProductsPageElements.Choice_button, time=2).click()
+        self.logger.info(f"Click delete button")
         self.find_element(locator=ProductsPageElements.Delete_button, time=2).click()
         time.sleep(1)
+        self.logger.info(f"Check alert")
         self.driver.switch_to.alert.accept()
+        self.logger.info(f"Delete product")

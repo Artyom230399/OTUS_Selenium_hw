@@ -13,18 +13,23 @@ class AdminPageElements:
 class AdminPage(BasePage):
 
     def title_adminPage(self):
+        self.logger.info(f"Check title admin page")
         return self.driver.title
 
     def open_admin_page(self):
+        self.logger.info(f"Open admin page")
         return self.open_page("/admin")
 
     def check_username_field(self, text):
+        self.logger.info(f"username input")
         return self.find_element(locator=AdminPageElements.username_locator, time=2).send_keys(text)
 
     def check_password_field(self, text):
+        self.logger.info(f"password input")
         return self.find_element(locator=AdminPageElements.password_locator, time=2).send_keys(text)
 
     def Authorization(self, username, password):
+        self.logger.info(f"Authorization admin page")
         self.open_admin_page()
         self.check_username_field(text=username)
         self.check_password_field(text=password)

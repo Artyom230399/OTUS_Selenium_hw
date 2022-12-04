@@ -1,3 +1,4 @@
+import logging
 import pytest
 import json
 
@@ -84,6 +85,10 @@ def browser(request):
     driver.get(url)
 
     driver.url = url
+
+    driver.test_name = request.node.name
+    driver.log_level = logging.DEBUG
+
     return driver
 
 
@@ -108,4 +113,3 @@ def user_password():
         user = json.load(f2)
         password = user['Password']
     return password
-

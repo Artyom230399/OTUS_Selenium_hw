@@ -17,22 +17,28 @@ class MacBookPageElements:
 class MacBookPage(BasePage):
 
     def open_macbook_page(self):
+        self.logger.info(f"Open MacBook page")
         self.driver.maximize_window()
         self.open_page(_url="/macbook")
         time.sleep(5)
 
     def title_macbook_page(self):
+        self.logger.info(f"Check title page")
         return self.driver.title
 
     def add_macbook(self):
+        self.logger.info(f"Add MacBook in my shopping cart")
         self.find_element(locator=MacBookPageElements.add_button, time=15).click()
         self.find_element(locator=MacBookPageElements.shopping_cart_button, time=15).click()
 
     def search_add_wishlist_button(self):
+        self.logger.info(f"Search add wishlist button")
         self.find_element(locator=MacBookPageElements.add_wishlist_button, time=15).click()
 
     def search_home_button(self):
+        self.logger.info(f"Search home button")
         self.find_element(locator=MacBookPageElements.home_button, time=5).click()
 
     def search_description(self):
+        self.logger.info(f"Search description")
         self.find_element(locator=MacBookPageElements.description_button, time=5)

@@ -1,3 +1,6 @@
+import logging
+import os
+
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -6,8 +9,18 @@ class BasePage:
 
     def __init__(self, driver):
         self.driver = driver
+        self.__config_logger()
+
+    def __config_logger(self):
+        self.logger = logging.getLogger(type(self).__name__)
+        os.makedirs("logs", exist_ok=True)
+        file_handler = logging.FileHandler(f"logs/{self.driver.test_name}.log")
+        file_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+        self.logger.addHandler(file_handler)
+        self.logger.setLevel(level=self.driver.log_level)
 
     def find_element(self, locator, time):
+        # self.logger.info(f"Find element: {locator}")
         return WebDriverWait(self.driver, time).until(EC.visibility_of_element_located(locator))
 
     def find_elements(self, locator, time):
