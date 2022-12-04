@@ -1,3 +1,4 @@
+import logging
 import pytest
 import json
 
@@ -84,6 +85,9 @@ def browser(request):
     driver.get(url)
 
     driver.url = url
+
+    driver.test_name = request.node.name
+    driver.log_level = logging.DEBUG
 
     return driver
 
