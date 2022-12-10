@@ -12,7 +12,6 @@ from page_objects.ProductsPage import ProductsPage
 @allure.title('Search the desktops button on the Home page')
 def test_homepage_search_desktops_button(browser):
     homepage = HomePage(browser)
-
     homepage.search_desktop_button()
 
 

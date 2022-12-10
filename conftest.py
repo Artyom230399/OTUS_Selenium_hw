@@ -24,6 +24,10 @@ def pytest_addoption(parser):
     parser.addoption(
         "--firefox_location", default="C:/Program Files/Mozilla Firefox"
     )
+    parser.addoption(
+        "--executor", action="store", default="192.168.0.100"
+    )
+    parser.addoption("--bv")
 
 
 @pytest.fixture
@@ -34,50 +38,64 @@ def browser(request):
     driver_path = request.config.getoption("--driver_path")
     url = request.config.getoption("--url")
     FireFox_location = request.config.getoption("--firefox_location")
+    executor = request.config.getoption("--executor")
+    version = request.config.getoption("--bv")
 
-    if browser_name == "chrome":
-        # headless-режим
-        options = webdriver.ChromeOptions()
-        # Убираем лишние сообщения
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
+    if executor == "local":
 
-        if headless:
-            options.headless = True
+        if browser_name == "chrome":
+            # headless-режим
+            options = webdriver.ChromeOptions()
+            # Убираем лишние сообщения
+            options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
-        driver = webdriver.Chrome(
-            service=Service(f"{driver_path}/chromedriver.exe"),
-            options=options
-        )
+            if headless:
+                options.headless = True
 
-    elif browser_name == "firefox":
-        # headless-режим
-        options = webdriver.FirefoxOptions()
-        options.binary_location = f"{FireFox_location}/firefox.exe"
+            driver = webdriver.Chrome(
+                service=Service(f"{driver_path}/chromedriver.exe"),
+                options=options
+            )
 
-        if headless:
-            options.headless = True
+        elif browser_name == "firefox":
+            # headless-режим
+            options = webdriver.FirefoxOptions()
+            options.binary_location = f"{FireFox_location}/firefox.exe"
 
-        driver = webdriver.Firefox(
-            service=Service(f"{driver_path}/geckodriver.exe"),
-            options=options
-        )
+            if headless:
+                options.headless = True
 
-    elif browser_name == "yandex":
-        # headless-режим
-        options = webdriver.ChromeOptions()
-        # Убираем лишние сообщения
-        options.add_experimental_option('excludeSwitches', ['enable-logging'])
+            driver = webdriver.Firefox(
+                service=Service(f"{driver_path}/geckodriver.exe"),
+                options=options
+            )
 
-        if headless:
-            options.headless = True
+        elif browser_name == "yandex":
+            # headless-режим
+            options = webdriver.ChromeOptions()
+            # Убираем лишние сообщения
+            options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
-        driver = webdriver.Chrome(
-            service=Service(f"{driver_path}/yandexdriver.exe"),
-            options=options
-        )
+            if headless:
+                options.headless = True
+
+            driver = webdriver.Chrome(
+                service=Service(f"{driver_path}/yandexdriver.exe"),
+                options=options
+            )
 
     else:
-        print('browser not found')
+
+        capabilities = {
+            "browserName": browser_name,
+            "browserVersion": version,
+            "name": "Artyom"
+        }
+
+        driver = webdriver.Remote(
+            command_executor=f"http://{executor}:4444/wd/hub",
+            desired_capabilities=capabilities,
+        )
 
     # Финализатор
     request.addfinalizer(driver.close)
